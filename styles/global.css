@@ -7,11 +7,14 @@
         display: contents;
     }
 }
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap");
 
 * {
     box-sizing: border-box;
 }
-
+html {
+    font-family: "Quicksand", sans-serif;
+}
 .rainbow-mesh {
     background-color: hsla(0, 100%, 50%, 1);
     background-image: radial-gradient(

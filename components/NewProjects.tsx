@@ -15,6 +15,7 @@ const NewProjects = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         await createNewProject(name);
+        closeModal();
     };
     return (
         <div className="px-6 py-8 hover:scale-105 transition-all ease-in-out duration-200 flex justify-center items-center">

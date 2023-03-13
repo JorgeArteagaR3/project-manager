@@ -1,6 +1,5 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { jwtVerify } from "jose";
-import Home from "./app/(dashboard)/home/page";
 
 const PUBLIC_FILE = /\.(.*)$/;
 
@@ -13,7 +12,7 @@ const verifyJWT = async (jwt) => {
     return payload;
 };
 
-export default async function middleware(req, res) {
+export default async function middleware(req: NextRequest, res: NextResponse) {
     const { pathname } = req.nextUrl;
     if (
         pathname.startsWith("/_next") ||
@@ -35,6 +34,10 @@ export default async function middleware(req, res) {
 
     try {
         await verifyJWT(jwt.value);
+        if (pathname === "/") {
+            req.nextUrl.pathname = "/home";
+            return NextResponse.redirect(req.nextUrl);
+        }
         return NextResponse.next();
     } catch (e) {
         req.nextUrl.pathname = "/singin";
