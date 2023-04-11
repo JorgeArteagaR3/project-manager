@@ -24,16 +24,17 @@ const NewProjects = () => {
             <Modal
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
-                overlayClassName="bg-[rgba(0,0,0,.4)] flex justify-center items-center absolute top-0 left-0 h-screen w-screen"
-                className="w-3/4 bg-white rounded-xl p-8"
+                overlayClassName="bg-[rgba(0,0,0,.7)] flex justify-center items-center absolute top-0 left-0 h-screen w-screen"
+                className="w-2/3 md:w-[400px] bg-white rounded-xl p-8"
             >
-                <h1 className="text-3xl mb-6">New Project</h1>
+                <h1 className="text-3xl mb-6 text-center">Create Project</h1>
                 <form
-                    className="flex items-center"
+                    className="flex items-center flex-col gap-4"
                     onSubmit={handleSubmit}
                 >
                     <Input
-                        placeholder="project name"
+                        className={"text-center"}
+                        placeholder="Project Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />

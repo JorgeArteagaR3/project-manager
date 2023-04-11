@@ -24,7 +24,7 @@ export default async function signin(
 
             res.setHeader(
                 "Set-Cookie",
-                serialize(process.env.COOKIE_NAME, jwt, {
+                serialize(process.env.COOKIE_NAME!, jwt, {
                     httpOnly: true,
                     path: "/",
                     maxAge: 60 * 60 * 24 * 7,

@@ -1,7 +1,8 @@
+import { SidebarLinkItem } from "@/types";
 import Card from "./Card";
 import SidebarLink from "./SidebarLink";
 
-const links = [
+const links: SidebarLinkItem[] = [
     { label: "Home", icon: "Grid", link: "/home" },
     {
         label: "Calendar",
@@ -18,7 +19,7 @@ const links = [
 
 const Sidebar = () => {
     return (
-        <Card className="h-full w-40 flex items-center justify-between flex-wrap">
+        <Card className="h-30 w-full flex items-center justify-between md:w-40 md:flex-col md:h-full md:py-16">
             {links.map((link) => (
                 <SidebarLink
                     key={link.label}

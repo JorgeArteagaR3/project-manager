@@ -19,25 +19,28 @@ const formatDate = (date: Date) => {
 };
 
 export const ProjectCard: FC<{ project: ProjectWithTasks }> = ({ project }) => {
-    const completedCount = project.tasks.map(
+    const completedCount = project.tasks.filter(
         (task) => task.status === TASK_STATUS.COMPLETED
     ).length;
-
-    const progress = Math.ceil((completedCount / project.tasks.length) * 100);
-
+    const progress = project.tasks.length
+        ? (completedCount / project.tasks.length) * 100
+        : 0;
+    const totalTasks = `${completedCount}/${project.tasks.length} completed`;
     return (
-        <Card className="!px-6 !py-8 hover:scale-105 transition-all ease-in-out duration-200">
+        <Card className="transition-all ease-in-out duration-200 hover:bg-pink-500">
             <div>
                 <span className="text-sm text-gray-300">
                     {formatDate(project.createdAt)}
                 </span>
             </div>
-            <div className="mb-6">
-                <span className="text-3xl text-gray-600">{project.name}</span>
+            <div className="mb-3 md:mb-6">
+                <p className="text-lg md:text-2xl text-gray-600 overflow-hidden text-ellipsis">
+                    {project.name}
+                </p>
             </div>
-            <div className="mb-2">
+            <div className="mb-1 md:mb-2">
                 <span className="text-gray-400">
-                    {completedCount}/{project.tasks.length} completed
+                    {project.tasks.length ? totalTasks : "No tasks yet"}
                 </span>
             </div>
             <div>

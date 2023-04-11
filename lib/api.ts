@@ -32,3 +32,20 @@ export const createNewProject = async (name: string) => {
         json: true,
     });
 };
+
+export const createNewTask = async ({
+    name,
+    description,
+    projectId,
+}: {
+    name: string;
+    description: string;
+    projectId: string;
+}) => {
+    fetcher({
+        url: "/api/task",
+        method: "POST",
+        body: { name, description, projectId },
+        json: true,
+    });
+};

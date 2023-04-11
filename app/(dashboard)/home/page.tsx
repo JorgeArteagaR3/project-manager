@@ -3,7 +3,6 @@ import GreetingsSkeleton from "@/components/GreetingsSkeleton";
 import NewProjects from "@/components/NewProjects";
 import { ProjectCard } from "@/components/ProjectCard";
 import TaskCard from "@/components/TaskCard";
-import { delay } from "@/lib/async";
 import { getUserFromCookies } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { cookies } from "next/headers";
@@ -34,10 +33,10 @@ export default async function Page() {
                         <Greetings />
                     </Suspense>
                 </div>
-                <div className="flex flex-2 grow items-center flex-wrap mt-3 -m-3 ">
-                    {projects.map((project) => (
+                <div className="flex flex-col md:flex-wrap lg:grid lg:grid-cols-2 2xl:grid-cols-4 lg:auto-rows-[200px] lg:place-items-center items-center mt-3 -m-3">
+                    {projects?.map((project) => (
                         <div
-                            className="w-1/3 p-3"
+                            className="w-full h-full p-3 overflow-hidden"
                             key={project.id}
                         >
                             <Link href={`/project/${project.id}`}>
@@ -51,8 +50,8 @@ export default async function Page() {
                 </div>
                 <div className="mt-6 flex-2 grow w-full flex">
                     <div className="w-full">
-                        <Suspense fallback="loadng">
-                            <TaskCard />
+                        <Suspense fallback={<GreetingsSkeleton />}>
+                            <TaskCard title={"List of Tasks"} />
                         </Suspense>
                     </div>
                 </div>

@@ -5,7 +5,7 @@ import Card from "./Card";
 import { delay } from "@/lib/async";
 
 const getData = async () => {
-    await delay(5000);
+    await delay(2000);
     const user = await getUserFromCookies(cookies());
     return user;
 };
@@ -16,15 +16,20 @@ export default async function Greetings() {
     return (
         <Card className="w-full py-4 relative">
             <div className="mb-4">
-                <h1 className="text-3xl text-gray-700 font-bold mb-4">
+                <h1 className="text-xl md:text-3xl text-gray-700 font-bold mb-4 capitalize">
                     Hello, {user?.firstName}!
                 </h1>
-                <h4 className="text-xl text-gray-400">
+                <h4 className="text-sm md:text-xl text-gray-400">
                     Check your daily tasks and schedule
                 </h4>
             </div>
             <div>
-                <Button size="large">Today&apos;s Schedule</Button>
+                <Button
+                    size="large"
+                    className="text-sm md:text-base py-2"
+                >
+                    Today&apos;s Schedule
+                </Button>
             </div>
         </Card>
     );

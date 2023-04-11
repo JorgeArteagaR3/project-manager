@@ -1,14 +1,12 @@
-import { delay } from "@/lib/async";
 import { getUserFromCookies } from "@/lib/auth";
 import { db } from "@/lib/db";
+import { Task } from "@/types";
 import { TASK_STATUS } from "@prisma/client";
 import { cookies } from "next/headers";
-import { use } from "react";
-import Button from "./Button";
 import Card from "./Card";
-
+import NewTask from "./NewTask";
+import TaskStatus from "./TaskStatus";
 const getData = async () => {
-    await delay(3000);
     const user = await getUserFromCookies(cookies());
     const tasks = await db.task.findMany({
         where: {
@@ -26,43 +24,47 @@ const getData = async () => {
     return tasks;
 };
 
-const TaskCard = async ({ tasks, title }) => {
+const TaskCard = async ({
+    tasks,
+    title,
+}: {
+    tasks: Task[] | undefined;
+    title: string | undefined;
+}) => {
     const data = tasks || (await getData());
 
     return (
         <Card>
             <div className="flex justify-between items-center">
                 <div>
-                    <span className="text-3xl text-gray-600">{title}</span>
+                    <span className="text-3xl text-gray-600 font-bold">
+                        {title}
+                    </span>
                 </div>
                 <div>
-                    <Button
-                        intent="text"
-                        className="text-violet-600"
-                    >
-                        + Create New
-                    </Button>
+                    <NewTask />
                 </div>
             </div>
             <div>
                 {data && data.length ? (
-                    <div>
+                    <div className="flex flex-col gap-6">
                         {data.map((task) => (
-                            <div
+                            <Card
                                 key={task.id}
-                                className="py-2"
+                                className="py-2 px-4 rounded-full drop-shadow-none bg-purple-50"
                             >
                                 <div>
-                                    <span className="text-gray-800">
+                                    <span className="text-gray-800 font-bold">
                                         {task.name}
                                     </span>
                                 </div>
                                 <div>
-                                    <span className="text-gray-400 text-sm">
+                                    <span className="text-purple-400 text-base">
                                         {task.description}
                                     </span>
                                 </div>
-                            </div>
+                                <TaskStatus intent={"COMPLETED"} />
+                            </Card>
                         ))}
                     </div>
                 ) : (
